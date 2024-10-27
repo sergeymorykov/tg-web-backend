@@ -199,37 +199,25 @@ def users_reg():
 
 
 
-@app.route('/users', methods=['GET','POST','OPTIONS'])
+@app.route('/users', methods=['GET'])
 def get_users():
     """
     Метод для получения списка пользователей.
     """
-    if request.method == 'OPTIONS':
-        # Preflight request; respond with allowed methods and headers
-        response = make_response()
-        response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-        return response
     
-    data_ret = []
+
     # Чтение JSON-файла
     with open('./DB/users.json', 'r') as file:
         data = json.load(file)
     
-    json_data = request.get_json() 
-    id_tg = json_data['id_tg']
-
-    for user in data:
-        if user['id_tg'] != id_tg:
-            data_ret.append(user)
-
+    #json_data = request.get_json() 
+    #if\
     
-
-    response = make_response(jsonify(data_ret))
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+    response = make_response(jsonify(data))
+    response.headers['Access-Control-Allow-Origin'] = '*'  # Разрешить доступ с любых источников
+    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'  # Разрешенные методы
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'  # Разрешенные заголовки
+    
     return response
 
 @app.after_request
