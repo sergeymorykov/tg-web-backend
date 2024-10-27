@@ -199,11 +199,18 @@ def users_reg():
 
 
 
-@app.route('/users', methods=['GET'])
+@app.route('/users', methods=['GET','POST','OPTIONS'])
 def get_users():
     """
     Метод для получения списка пользователей.
     """
+    if request.method == 'OPTIONS':
+        # Preflight request; respond with allowed methods and headers
+        response = make_response()
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
+        return response
     
     data_ret = []
     # Чтение JSON-файла
@@ -218,11 +225,11 @@ def get_users():
             data_ret.append(user)
 
     
+
     response = make_response(jsonify(data_ret))
-    response.headers['Access-Control-Allow-Origin'] = '*'  # Разрешить доступ с любых источников
-    response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'  # Разрешенные методы
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'  # Разрешенные заголовки
-    
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
     return response
 
 @app.after_request
