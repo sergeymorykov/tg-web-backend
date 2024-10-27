@@ -178,6 +178,7 @@ def users_reg():
     new_user['fullname'] = json_data['fullname']
     new_user['photo'] = json_data['photo']
     new_user['interests'] = json_data['interests']
+    new_user['about'] = json_data['about']
 
 
     data.append(new_user)
