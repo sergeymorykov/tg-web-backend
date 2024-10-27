@@ -19,7 +19,7 @@ last_id = ""
 def get_nicname(user_id):
     with open('./DB/users.json', 'r',encoding='utf-8') as file:
         data = json.load(file)
-    print(f"Data: {data}")
+    #print(f"Data: {data}")
     for userDb in data:
         if userDb['id_user'] == user_id:
             nicname = userDb['name']
@@ -31,7 +31,7 @@ def get_nicname(user_id):
 def get_nicname_from_tg(id_tg):
     with open('./DB/users.json', 'r',encoding='utf-8') as file:
         data = json.load(file)
-    print(f"Data: {data}")
+    #print(f"Data: {data}")
     for userDb in data:
         if userDb['id_tg'] == id_tg:
             nicname = userDb['name']
@@ -78,7 +78,7 @@ def add_event():
     with open('./DB/events.json', 'r',encoding='utf-8') as file:
         data = json.load(file)
     # Вывод данных запроса в консоль
-    print("JSON Data:", json_data)
+    #print("JSON Data:", json_data)
         # "event_id": "1",
         # "event_name": "Игра в PS",
         # "description": "Описание",
@@ -110,7 +110,7 @@ def last_id():
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
         return response
     data = request.json
-    print(f"Data: {data}")
+    #print(f"Data: {data}")
 
     last_id = data['last_id']
     response = make_response(jsonify({"status":"ok"}))
@@ -131,7 +131,7 @@ def register_event():
     data = request.json
 
 
-    print(f"Data reg event: {data}")
+    #print(f"Data reg event: {data}")
     user_id = data["user_id"]
     event_name = data["event_name"]
 
@@ -155,13 +155,13 @@ def users_reg():
         response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
         response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
         return response
-    print(request.method)
+    #print(request.method)
     json_data = request.get_json() 
-    print(f"JSON: {json_data}")
+    #print(f"JSON: {json_data}")
 
     with open('./DB/users.json', 'r',encoding='utf-8') as file:
         data = json.load(file)
-    print(f"Data: {data}")
+    #print(f"Data: {data}")
 
     new_user = {}
     
@@ -282,7 +282,7 @@ def dislikes():
         return response
     
     json_data = request.get_json() 
-    print(f"JSON: {json_data}")
+    #print(f"JSON: {json_data}")
 
     response = make_response(jsonify({"status":"ok"}))
     response.headers['Access-Control-Allow-Origin'] = '*'  # Разрешить доступ с любых источников
