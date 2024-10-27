@@ -205,11 +205,20 @@ def get_users():
     Метод для получения списка пользователей.
     """
     
-
+    data_ret = []
     # Чтение JSON-файла
     with open('./DB/users.json', 'r') as file:
         data = json.load(file)
-    response = make_response(jsonify(data))
+    
+    json_data = request.get_json() 
+    id_tg = json_data['id_tg']
+
+    for user in data:
+        if user['id_tg'] != id_tg:
+            data_ret.append(user)
+
+    
+    response = make_response(jsonify(data_ret))
     response.headers['Access-Control-Allow-Origin'] = '*'  # Разрешить доступ с любых источников
     response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'  # Разрешенные методы
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'  # Разрешенные заголовки
