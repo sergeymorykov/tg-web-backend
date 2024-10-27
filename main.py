@@ -213,6 +213,7 @@ def get_users():
     response.headers['Access-Control-Allow-Origin'] = '*'  # Разрешить доступ с любых источников
     response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'  # Разрешенные методы
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'  # Разрешенные заголовки
+    
     return response
 
 @app.after_request
